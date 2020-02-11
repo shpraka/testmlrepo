@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # now use this object and pass it to Github manager to implement
 
-    gm = GithubManager("c973e6c4bf303d017ffc49ccdeee8acbddacd185 ")
+    gm = GithubManager("e3017a0112eec7c74a9268dbcc3ea7641895b706")
     akscluster = replyObject["AKSCluster"][0] if len(
         replyObject["AKSCluster"]) > 0 else None
     acrAccount = replyObject["ACRAccount"][0] if len(
