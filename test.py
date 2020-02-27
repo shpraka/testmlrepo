@@ -30,12 +30,12 @@ if __name__ == "__main__":
 
     # now use this object and pass it to Github manager to implement
 
-    gm = GithubManager("")
+    gm = GithubManager("5cba165500074cdf6f7a52c9af7d04ce98827e7d")
     akscluster = replyObject["AKSCluster"][0] if len(
         replyObject["AKSCluster"]) > 0 else None
     acrAccount = replyObject["ACRAccount"][0] if len(
         replyObject["ACRAccount"]) > 0 else None
-    gm.pushDeployFilestoRepo(akscluster, acrAccount)
+    gm.getWorkflowStatus("5ffd1ce2b192665f8d82ead19fed543796a3b8fc", akscluster)
 
     # # print(files)
     # newFile = "charts/Chart.yml"
