@@ -22,7 +22,7 @@ def predict():
 
 @app.route('/hello', methods=['GET'])
 def hell0():
-    return jsonify({'trace': "tracing", "message": "Your change is deployed"})
+    return jsonify({'trace': "tracing", "message": "your change is deployed"})
 
 
 if __name__ == '__main__':
