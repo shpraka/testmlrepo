@@ -6,6 +6,7 @@ import sys
 # API definition
 app = Flask(__name__)
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     return jsonify({'this will be predict return': "predicting"})
@@ -18,16 +19,18 @@ def predict():
     #     print(ex)
     #     return jsonify({'trace': "tracing"})
 
+
 @app.route('/hello', methods=['GET'])
 def hell0():
-	return jsonify({'trace': "tracing", "message" : "Your change is deployed"})
-	
+    return jsonify({'trace': "tracing", "message": "Your change is deployed"})
+
+
 if __name__ == '__main__':
-    model = None;
+    model = None
     port = 8080
-    
+
     # pkl_file = open('azdevopsdemo.pkl', 'rb')
     # model = pickle.load(pkl_file)
     # pkl_file.close()
-    
-    app.run(host='0.0.0.0',port=port, debug=True)
+
+    app.run(host='0.0.0.0', port=port, debug=True)
