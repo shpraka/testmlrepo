@@ -1,4 +1,4 @@
-from flask import Flask, send_file, redirect, url_for,request,jsonify
+from flask import Flask, send_file, redirect, url_for, request, jsonify
 # To make the start endpoint faster, moving imports to main app
 import numpy as np
 import pandas as pd
@@ -33,7 +33,7 @@ def hello_page():
     '''
 
 
-@app.route('/predict',methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict_model():
     data = request.get_json()
     if data != None:
@@ -42,7 +42,7 @@ def predict_model():
         try:
             predict = pd.DataFrame(y_predict_new)
             return jsonify({'prediction': str(predict.apply(np.round))})
-        except Exception  as ex:
+        except Exception as ex:
             print(ex)
             return jsonify({'trace': str(ex)})
     else:
@@ -72,7 +72,7 @@ def modelGenerator():
 
 
 if __name__ == '__main__':
-    model = None;
+    model = None
     pkl_file = open('azdevopsdemo.pkl', 'rb')
     model = pickle.load(pkl_file)
     pkl_file.close()
