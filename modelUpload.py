@@ -8,8 +8,10 @@ idval = random.randrange(10, 20, 2)
 
 import sys
 
-input_datUrl = os.environ['TRAINING_DATA_URL']
 
+#input_datUrl = os.getenv("TRAINING_DATA_URL", default="https://genpurposestorage.blob.core.windows.net/imagescontainer/TrainingData2.csv")
+input_datUrl = os.environ.get('TRAINING_DATA_URL', 'https://genpurposestorage.blob.core.windows.net/imagescontainer/TrainingData2.csv')
+print(input_datUrl)
 pythonVer = sys.version[:5]
 requirementsList = open('requirements.txt').readlines()
 requirements = ' '.join([req.split()[0] for req in requirementsList])
