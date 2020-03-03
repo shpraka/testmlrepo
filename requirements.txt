@@ -3,3 +3,4 @@ sklearn
 numpy
 Flask
 pickle-mixin
+azure-storage-blob

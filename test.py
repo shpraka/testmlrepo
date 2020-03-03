@@ -1,6 +1,7 @@
 from jupextdemo.utils import *
 from jupextdemo.azaks_deploy import *
 from jupextdemo.gitHubManager import GithubManager
+from jupextdemo.const import *
 
 
 def _test_accounts():
@@ -12,30 +13,31 @@ if __name__ == "__main__":
     # STEP 1 : take the AKS and ACR details
     # STEP 2 : Configure the Workflow files if they don't exist
     # STEP 3:  Check-In the Workflow files to Github Repo
+    # if aks_dep.IsUserLoggedIn():
+    #     replyObject["DefaultSubscription"] = aks_dep.getDefaultSubscription()
+    # else:
+    #     aks_dep.loginUserFlow()
+    #     replyObject["DefaultSubscription"] = aks_dep.getDefaultSubscription()
 
-    aks_dep = AKSDeploy()
-    if aks_dep.IsUserLoggedIn():
-        replyObject["DefaultSubscription"] = aks_dep.getDefaultSubscription()
-    else:
-        aks_dep.loginUserFlow()
-        replyObject["DefaultSubscription"] = aks_dep.getDefaultSubscription()
+    # # get ACR details
+    # replyObject["ACRAccount"] = aks_dep.getACRDetails()
 
-    # get ACR details
-    replyObject["ACRAccount"] = aks_dep.getACRDetails()
-
-    # get AKS details
-    replyObject["AKSCluster"] = aks_dep.getAKSDetails()
-
-    print(replyObject)
+    # # get AKS details
+    # replyObject["AKSCluster"] = aks_dep.getAKSDetails()
 
     # now use this object and pass it to Github manager to implement
 
-    gm = GithubManager("5cba165500074cdf6f7a52c9af7d04ce98827e7d")
-    akscluster = replyObject["AKSCluster"][0] if len(
-        replyObject["AKSCluster"]) > 0 else None
-    acrAccount = replyObject["ACRAccount"][0] if len(
-        replyObject["ACRAccount"]) > 0 else None
-    gm.getWorkflowStatus("5ffd1ce2b192665f8d82ead19fed543796a3b8fc", akscluster)
+    gm = GithubManager("e0322734b62f59cfb7e333995bcba9878696d000")
+    repo = gm.getRepo()
+
+    gm.pushFiles(repo)
+    # add Az credentials to github
+
+    # akscluster = replyObject["AKSCluster"][0] if len(
+    #     replyObject["AKSCluster"]) > 0 else None
+    # acrAccount = replyObject["ACRAccount"][0] if len(
+    #     replyObject["ACRAccount"]) > 0 else None
+    # gm.pushDeployFilestoRepo(akscluster, acrAccount)
 
     # # print(files)
     # newFile = "charts/Chart.yml"

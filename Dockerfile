@@ -1,17 +1,15 @@
-# Pull a pre-built alpine docker image with nginx and python3 installed
-FROM python:3
+FROM python
+ENV PORT 80
+EXPOSE 80
+WORKDIR /usr/src/app
 
-ADD app.py / 
-ADD azdevopsdemo.pkl / 
-ADD requirements.txt / 
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install jupyter
+RUN pip install nbconvert
+# Running the nbconvert script
+RUN jupyter nbconvert --to script SampleModelGeneratorScriptCopy.ipynb
+RUN python SampleModelGeneratorScriptCopy.py
 
-# Set the folder where uwsgi looks for the app
-WORKDIR /
-
-RUN pip install --no-cache-dir -U pip
-RUN pip install --no-cache-dir -r /requirements.txt
-
-EXPOSE 8080 
-
-# Run the flask server for the endpoints 
-CMD python app.py
+ENTRYPOINT ["python"]
+CMD ["app.py"]
