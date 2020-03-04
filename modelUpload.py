@@ -19,7 +19,7 @@ requirements = ' '.join([req.split()[0] for req in requirementsList])
 description = 'Python v'+pythonVer+' '+requirements
 
 modelUploadBase = "https://52.165.161.123:8000/user/ashkuma/notebooks/demo/"
-directory = os.path.split(os.getcwd())[1]
+directory = "testmlrepo"
 fileName = "/SampleModelGeneratorScriptCopy.ipynb"
 filePath = modelUploadBase + directory + fileName
 
