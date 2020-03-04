@@ -21,7 +21,7 @@ def getMetrics():
     except:
         pass
 
-    return obj;
+    return json.dumps(obj);
 
 
 input_datUrl = os.environ.get('TRAINING_DATA_URL', 'https://genpurposestorage.blob.core.windows.net/imagescontainer/TrainingData2.csv')
