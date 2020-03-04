@@ -7,7 +7,7 @@ from os.path import dirname, abspath
 import json
 title = random.choice(["Linear Regression", "Ordinal Regression"])
 author = random.choice( ["Mitesh", "Ashish", "Shashi"])
-idval = random.randrange(10, 20, 2)
+idval = uuid.uuid4();# random.randrange(10, 100, 2)
 
 import sys
 
