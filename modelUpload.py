@@ -33,15 +33,16 @@ requirements = ' '.join([req.split()[0] for req in requirementsList])
 description = 'Python v'+pythonVer+' '+requirements
 
 modelUploadBase = "https://52.165.161.123:8000/user/ashkuma/notebooks/demo/"
-directory = "demotestmlrepo"
+directory = "testmlrepo"
 fileName = "/SampleModelGeneratorScriptCopy.ipynb"
 filePath = modelUploadBase + directory + fileName
 
+tags = "age prediction, prediction"
 
 metrics = getMetrics();
 
 
-payload = [('fileName','model'+str(uuid.uuid4())),('id',str(idval)),('author',author),('title',title),('description',description),('link',filePath),('tags','regression'),
+payload = [('fileName','model'+str(uuid.uuid4())),('id',str(idval)),('author',author),('title',title),('description',description),('link',filePath),('tags',tags),
           ('trainingData',input_datUrl),('metrics',metrics)]
 
 from urllib.parse import urlencode
