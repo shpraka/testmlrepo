@@ -24,7 +24,13 @@ def getMetrics():
     return json.dumps(obj);
 
 
-input_datUrl = os.environ.get('TRAINING_DATA_URL', 'https://genpurposestorage.blob.core.windows.net/imagescontainer/TrainingData2.csv')
+def getDataSetUrl():
+    val = None
+    with open("dataset.json",'r') as f:
+        val = json.load(f)
+    return val
+
+input_datUrl = getDataSetUrl()
 
 pythonVer = sys.version[:5]
 requirementsList = open('requirements.txt').readlines()
