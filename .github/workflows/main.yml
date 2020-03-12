@@ -17,26 +17,6 @@ jobs:
         docker build . -t aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
         docker push aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
 
-    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
-      uses: azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: aaaaaaa
-        resource-group: shpraka
-        
-    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
-      uses: azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: mlopsprod
-        resource-group: shpraka
-      
-    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
-      uses: azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: mlopsstage
-        resource-group: shpraka
 
     - uses: Azure/k8s-create-secret@v1
       with:
@@ -52,6 +32,45 @@ jobs:
         releaseName: testmlrepo
       id: bake
 
+    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
+      uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: aaaaaaa
+        resource-group: shpraka
+        
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        images: |
+          aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
+        imagepullsecrets: |
+          demo-k8s-secret
+
+    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
+      uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: mlopsstage
+        resource-group: shpraka
+      
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        images: |
+          aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
+        imagepullsecrets: |
+          demo-k8s-secret
+          
+          
+    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
+      uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: mlopsprod
+        resource-group: shpraka
+        
+        
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
