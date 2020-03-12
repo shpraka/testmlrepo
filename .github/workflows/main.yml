@@ -24,8 +24,7 @@ jobs:
         releaseName: testmlrepo
       id: bake
 
-    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
-      uses: azure/aks-set-context@v1
+    - uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: aaaaaaa
@@ -38,7 +37,8 @@ jobs:
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: demo-k8s-secret
 
-    - uses: Azure/k8s-deploy@v1
+    - name: Deploy to Dev Cluster
+      uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
@@ -60,7 +60,8 @@ jobs:
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: demo-k8s-secret
 
-    - uses: Azure/k8s-deploy@v1
+    - name: Deploy to Staging Cluster
+      uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
@@ -69,8 +70,7 @@ jobs:
           demo-k8s-secret
           
           
-    - name: Set Context for Azure Kubernetes Cluster using azure/aks-set-context@v1 action
-      uses: azure/aks-set-context@v1
+    - uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: mlopsprod
@@ -83,7 +83,8 @@ jobs:
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: demo-k8s-secret
    
-    - uses: Azure/k8s-deploy@v1
+    - name: Deploy to Production Cluster
+      uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
