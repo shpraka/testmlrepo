@@ -17,14 +17,6 @@ jobs:
         docker build . -t aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
         docker push aaaaaademo.azurecr.io/testmlrepo:${{ github.sha }}
 
-
-    - uses: Azure/k8s-create-secret@v1
-      with:
-        container-registry-url: aaaaaademo.azurecr.io
-        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
-        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        secret-name: demo-k8s-secret
-
     - uses: azure/k8s-bake@v1
       with:
         renderEngine: 'helm2'
@@ -39,6 +31,13 @@ jobs:
         cluster-name: aaaaaaa
         resource-group: shpraka
         
+    - uses: Azure/k8s-create-secret@v1
+      with:
+        container-registry-url: aaaaaademo.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: demo-k8s-secret
+
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
@@ -54,6 +53,13 @@ jobs:
         cluster-name: mlopsstage
         resource-group: shpraka
       
+    - uses: Azure/k8s-create-secret@v1
+      with:
+        container-registry-url: aaaaaademo.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: demo-k8s-secret
+
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
@@ -70,7 +76,13 @@ jobs:
         cluster-name: mlopsprod
         resource-group: shpraka
         
-        
+    - uses: Azure/k8s-create-secret@v1
+      with:
+        container-registry-url: aaaaaademo.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: demo-k8s-secret
+   
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
